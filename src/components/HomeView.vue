@@ -3,7 +3,7 @@
     <div class="mdl-grid">
       <div class="mdl-cell mdl-cell--3-col mdl-cell mdl-cell--1-col-tablet mdl-cell--hide-phone"></div>
       <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-phone">
-        <div v-for="picture in pictures" class="image-card" @click="displayDetails(picture.id)">
+        <div v-for="picture in this.$root.cat" class="image-card" @click="displayDetails(picture['.key'])">
           <div class="image-card__picture">
             <img :src="picture.url" />
           </div>
@@ -19,13 +19,7 @@
   </div>
 </template>
 <script>
-import data from '../data'
 export default {
-  data () {
-    return {
-      'pictures': data.pictures
-    }
-  },
   methods: {
     displayDetails (id) {
       this.$router.push({name: 'detail', params: { id: id }})
@@ -34,6 +28,10 @@ export default {
 }
 </script>
 <style scoped>
+  .image-card__picture {
+    max-height: 400px;
+    /* padding: 10px; */
+  }
   .add-picture-button {
     position: fixed;
     right: 24px;
@@ -45,7 +43,10 @@ export default {
     margin-bottom: 8px;
   }
   .image-card__picture > img {
-    width:100%;
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    position: relative;
   }
   .image-card__comment {
     position: absolute;
